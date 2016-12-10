@@ -28,6 +28,11 @@ public class RoomSpaceScript : MonoBehaviour
         {
             Debug.Log(_room.gameObject.name + "entered");
             _room.PersonEntersRoom(other.GetComponent<Person>());
+
+            if (_room.Scary)
+            {
+                _room.Flee();
+            }
         }
     }
 

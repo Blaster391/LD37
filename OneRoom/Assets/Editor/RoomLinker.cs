@@ -23,6 +23,9 @@ public class RoomLinker : EditorWindow
 		if (GUILayout.Button("Link"))
 		{
             Link();
+		    
+		    AssetDatabase.SaveAssets();
+
 		}
 
         if (GUILayout.Button("Clear"))
@@ -49,6 +52,7 @@ public class RoomLinker : EditorWindow
             var northRoom = TryGetRoom(room.gameObject.transform.position + new Vector3(0, 0, 10));
             if (northRoom != null && !room.AdjecentRooms.Contains(northRoom))
             {
+
                 room.NorthWall.SetActive(false);
                 room.AdjecentRooms.Add(northRoom);
             }else if (northRoom == null)
@@ -88,6 +92,13 @@ public class RoomLinker : EditorWindow
             {
                 room.WestWall.SetActive(true);
             }
+
+            EditorUtility.SetDirty(room);
+            EditorUtility.SetDirty(room.NorthWall);
+            EditorUtility.SetDirty(room.SouthWall);
+            EditorUtility.SetDirty(room.EastWall);
+            EditorUtility.SetDirty(room.WestWall);
+
         }
     }
 
