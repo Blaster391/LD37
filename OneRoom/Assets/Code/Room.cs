@@ -16,6 +16,12 @@ public class Room : MonoBehaviour
     public GameObject EastWall;
     public GameObject WestWall;
 
+    public GameObject NorthWalkThrough;
+    public GameObject SouthWalkThrough;
+    public GameObject EastWalkThrough;
+    public GameObject WestWalkThrough;
+
+
     public bool Scary;
     public bool ColorExclusive;
     public PersonColor ExclusiveColor;
@@ -30,6 +36,11 @@ public class Room : MonoBehaviour
         WestWall = gameObject.transform.GetChild(2).gameObject;
         SouthWall = gameObject.transform.GetChild(3).gameObject;
         NorthWall = gameObject.transform.GetChild(4).gameObject;
+
+        NorthWalkThrough = gameObject.transform.GetChild(9).gameObject;
+        SouthWalkThrough = gameObject.transform.GetChild(10).gameObject;
+        EastWalkThrough = gameObject.transform.GetChild(11).gameObject;
+        WestWalkThrough = gameObject.transform.GetChild(12).gameObject;
 
         var material = gameObject.GetComponent<Renderer>();
         material.material.color = Color.grey;

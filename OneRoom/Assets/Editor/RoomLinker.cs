@@ -49,11 +49,25 @@ public class RoomLinker : EditorWindow
             room.SouthWall = room.gameObject.transform.GetChild(3).gameObject;
             room.NorthWall = room.gameObject.transform.GetChild(4).gameObject;
 
+            room.NorthWalkThrough = room.gameObject.transform.GetChild(9).gameObject;
+            room.SouthWalkThrough = room.gameObject.transform.GetChild(10).gameObject;
+            room.EastWalkThrough = room.gameObject.transform.GetChild(11).gameObject;
+            room.WestWalkThrough = room.gameObject.transform.GetChild(12).gameObject;
+
+            room.NorthWalkThrough.SetActive(false);
+            room.SouthWalkThrough.SetActive(false);
+            room.EastWalkThrough.SetActive(false);
+            room.WestWalkThrough.SetActive(false);
+
             var northRoom = TryGetRoom(room.gameObject.transform.position + new Vector3(0, 0, 10));
             if (northRoom != null && !room.AdjecentRooms.Contains(northRoom))
             {
 
                 room.NorthWall.SetActive(false);
+                if (room.ColorExclusive)
+                {
+                    room.NorthWalkThrough.SetActive(true);
+                }
                 room.AdjecentRooms.Add(northRoom);
             }else if (northRoom == null)
             {
@@ -64,6 +78,10 @@ public class RoomLinker : EditorWindow
             if (southRoom != null && !room.AdjecentRooms.Contains(southRoom))
             {
                 room.SouthWall.SetActive(false);
+                if (room.ColorExclusive)
+                {
+                    room.SouthWalkThrough.SetActive(true);
+                }
                 room.AdjecentRooms.Add(southRoom);
             }
             else if (southRoom == null)
@@ -75,6 +93,10 @@ public class RoomLinker : EditorWindow
             if (eastRoom != null && !room.AdjecentRooms.Contains(eastRoom))
             {
                 room.EastWall.SetActive(false);
+                if (room.ColorExclusive)
+                {
+                    room.EastWalkThrough.SetActive(true);
+                }
                 room.AdjecentRooms.Add(eastRoom);
             }
             else if (eastRoom == null)
@@ -86,6 +108,10 @@ public class RoomLinker : EditorWindow
             if (westRoom != null && !room.AdjecentRooms.Contains(westRoom))
             {
                 room.WestWall.SetActive(false);
+                if (room.ColorExclusive)
+                {
+                    room.WestWalkThrough.SetActive(true);
+                }
                 room.AdjecentRooms.Add(westRoom);
             }
             else if (westRoom == null)
@@ -99,6 +125,10 @@ public class RoomLinker : EditorWindow
             EditorUtility.SetDirty(room.EastWall);
             EditorUtility.SetDirty(room.WestWall);
 
+            EditorUtility.SetDirty(room.NorthWalkThrough);
+            EditorUtility.SetDirty(room.SouthWalkThrough);
+            EditorUtility.SetDirty(room.EastWalkThrough);
+            EditorUtility.SetDirty(room.WestWalkThrough);
         }
     }
 
@@ -108,13 +138,10 @@ public class RoomLinker : EditorWindow
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log("There is something in front of the object!" + hit.collider.tag + " - " + hit.collider.name);
             if (hit.collider.CompareTag("RoomSpace"))
             {
-                Debug.Log("Bleh" + hit.collider.gameObject.GetComponent<RoomSpaceScript>().gameObject.transform.parent);
                 return hit.collider.gameObject.GetComponent<RoomSpaceScript>().gameObject.transform.parent.GetComponent<Room>();
             }
-            
         }
 
         return null;
