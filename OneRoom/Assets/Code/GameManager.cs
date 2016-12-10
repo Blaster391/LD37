@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                 return;
         }
 
-        if (blueRoom != greenRoom)
+        if (blueRoom.First() != greenRoom.First())
         {
             if (NextLevelPanel != null)
                 NextLevelPanel.SetActive(true);

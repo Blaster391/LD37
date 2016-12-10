@@ -83,15 +83,35 @@ public class Room : MonoBehaviour
         if (filteredRooms.Count == 0)
             return;
 
+        var filteredRoomsBlue = filteredRooms.Where(x => (!x.ColorExclusive) || (x.ExclusiveColor == PersonColor.Blue)).ToList();
+        var filteredRoomsGreen = filteredRooms.Where(x => (!x.ColorExclusive) || (x.ExclusiveColor == PersonColor.Green)).ToList();
+
         var nextRoomIndex = 0;
-        foreach (var person in People)
+        foreach (var person in People.Where(x => x.PersonColor == PersonColor.Green))
         {
-            if (nextRoomIndex >= filteredRooms.Count)
+            if (filteredRoomsGreen.Count == 0)
+                break;
+            if (nextRoomIndex >= filteredRoomsGreen.Count)
             {
                 nextRoomIndex = 0;
             }
 
-            person.MoveToRoom(filteredRooms[nextRoomIndex]);
+            person.MoveToRoom(filteredRoomsGreen[nextRoomIndex]);
+
+            nextRoomIndex++;
+        }
+
+        nextRoomIndex = 0;
+        foreach (var person in People.Where(x => x.PersonColor == PersonColor.Blue))
+        {
+            if (filteredRoomsBlue.Count == 0)
+                break;
+            if (nextRoomIndex >= filteredRoomsBlue.Count)
+            {
+                nextRoomIndex = 0;
+            }
+
+            person.MoveToRoom(filteredRoomsBlue[nextRoomIndex]);
 
             nextRoomIndex++;
         }
@@ -113,20 +133,19 @@ public class Room : MonoBehaviour
     {
         float green = (float)GetPeopleOfColourCount(PersonColor.Green)/_gm.NumberOfPeopleOfGivenColor(PersonColor.Green);
         float blue = (float)GetPeopleOfColourCount(PersonColor.Blue) / _gm.NumberOfPeopleOfGivenColor(PersonColor.Blue);
-
+        float red = 0;
         if (Scary)
         {
-            SetColors(Color.red);
-            return;
+            red = 1;
         }
         
-        if (Math.Abs(green) < 0.01f)
+        if (GetPeopleOfColourCount(PersonColor.Green) == 0 && GetPeopleOfColourCount(PersonColor.Blue) == 0 && !Scary)
         {
             SetColors(Color.grey);
             return;
         }
 
-        SetColors(new Color(0, green, blue));
+        SetColors(new Color(red, green, blue));
         
     }
 
