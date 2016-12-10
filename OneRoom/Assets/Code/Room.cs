@@ -11,7 +11,14 @@ public class Room : MonoBehaviour
     public List<Room> AdjecentRooms;
     private GameManager _gm;
 
+    public GameObject NorthWall;
+    public GameObject SouthWall;
+    public GameObject EastWall;
+    public GameObject WestWall;
+
     public bool Scary;
+    public bool ColorExclusive;
+    public PersonColor ExclusiveColor;
 
 	// Use this for initialization
 	void Start ()
@@ -19,6 +26,10 @@ public class Room : MonoBehaviour
         _gm = GameObject.Find("Master").GetComponent<GameManager>();
         _gm.AddRoom(this);
         RoomSpace = gameObject.transform.GetChild(0).gameObject;
+        EastWall = gameObject.transform.GetChild(1).gameObject;
+        WestWall = gameObject.transform.GetChild(2).gameObject;
+        SouthWall = gameObject.transform.GetChild(3).gameObject;
+        NorthWall = gameObject.transform.GetChild(4).gameObject;
 
         var material = gameObject.GetComponent<Renderer>();
         material.material.color = Color.grey;
@@ -60,11 +71,18 @@ public class Room : MonoBehaviour
         var filteredRooms = AdjecentRooms.Where(x => !x.Scary).ToList();
         if (filteredRooms.Count == 0)
             return;
+
+        var nextRoomIndex = 0;
         foreach (var person in People)
         {
-            var fleeIndex = RandomInteger.Get(0, filteredRooms.Count);
-            Debug.Log(fleeIndex);
-            person.MoveToRoom(filteredRooms[fleeIndex]);
+            if (nextRoomIndex >= filteredRooms.Count)
+            {
+                nextRoomIndex = 0;
+            }
+
+            person.MoveToRoom(filteredRooms[nextRoomIndex]);
+
+            nextRoomIndex++;
         }
     }
 
@@ -85,25 +103,35 @@ public class Room : MonoBehaviour
         float green = (float)GetPeopleOfColourCount(PersonColor.Green)/_gm.NumberOfPeopleOfGivenColor(PersonColor.Green);
         float blue = (float)GetPeopleOfColourCount(PersonColor.Blue) / _gm.NumberOfPeopleOfGivenColor(PersonColor.Blue);
 
-
-
-        var material = gameObject.GetComponent<Renderer>();
-
         if (Scary)
         {
-            material.material.color = Color.red;
+            SetColors(Color.red);
             return;
         }
         
         if (Math.Abs(green) < 0.01f)
         {
-            material.material.color = Color.grey;
+            SetColors(Color.grey);
             return;
         }
 
-        material.material.color = new Color(0, green, blue);
+        SetColors(new Color(0, green, blue));
         
-        
+    }
+
+    private void SetColors(Color color)
+    {
+        var material = gameObject.GetComponent<Renderer>();
+        material.material.color = color;
+
+        var wallNMaterial = NorthWall.gameObject.GetComponent<Renderer>();
+        wallNMaterial.material.color = color;
+        var wallSMaterial = SouthWall.gameObject.GetComponent<Renderer>();
+        wallSMaterial.material.color = color;
+        var wallEMaterial = EastWall.gameObject.GetComponent<Renderer>();
+        wallEMaterial.material.color = color;
+        var wallWMaterial = WestWall.gameObject.GetComponent<Renderer>();
+        wallWMaterial.material.color = color;
     }
 
     private int GetPeopleOfColourCount(PersonColor color)

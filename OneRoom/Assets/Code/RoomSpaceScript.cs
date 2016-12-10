@@ -12,6 +12,11 @@ public class RoomSpaceScript : MonoBehaviour
 	    _room = gameObject.GetComponentInParent<Room>();
 
 	}
+
+    public Room GetConnectedRoom()
+    {
+        return _room;
+    }
 	
 	// Update is called once per frame
 	void Update () {
