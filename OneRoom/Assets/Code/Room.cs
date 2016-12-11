@@ -62,10 +62,16 @@ public class Room : MonoBehaviour
         if (People.Contains(p))
             return;
 
+        
         p.CurrentRoom = this;
         People.Add(p);
         CheckComplete();
         SetRoomColor();
+
+        if (Time.timeSinceLevelLoad > 0.5f)
+        {
+            p.PlayRoomAudio();
+        }
     }
     public void PersonLeavesRoom(Person p)
     {

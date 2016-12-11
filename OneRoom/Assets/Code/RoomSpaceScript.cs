@@ -27,7 +27,7 @@ public class RoomSpaceScript : MonoBehaviour
         if (other.CompareTag("Person"))
         {
             _room.PersonEntersRoom(other.GetComponent<Person>());
-
+            other.GetComponent<Person>().PlayRoomAudio();
             if (_room.Scary)
             {
                 _room.Flee();

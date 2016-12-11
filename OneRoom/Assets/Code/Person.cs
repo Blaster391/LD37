@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class Person : MonoBehaviour
@@ -11,6 +12,8 @@ public class Person : MonoBehaviour
     public PersonColor PersonColor;
     public bool RandomWander;
     public Room CurrentRoom;
+
+    public List<AudioClip> EnterAudio;
 
     // Use this for initialization
     void Start ()
@@ -45,6 +48,12 @@ public class Person : MonoBehaviour
             }
             yield return new WaitForSeconds(RandomInteger.Get(2, 8));
         }
+    }
+
+    public void PlayRoomAudio()
+    {
+        
+        gameObject.GetComponent<AudioSource>().PlayOneShot(EnterAudio[0]);
     }
 }
 
