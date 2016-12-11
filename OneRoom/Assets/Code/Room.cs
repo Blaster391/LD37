@@ -101,7 +101,6 @@ public class Room : MonoBehaviour
             nextRoomIndex++;
         }
 
-        nextRoomIndex = 0;
         foreach (var person in People.Where(x => x.PersonColor == PersonColor.Blue))
         {
             if (filteredRoomsBlue.Count == 0)
