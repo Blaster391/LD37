@@ -5,10 +5,11 @@ using System.Linq.Expressions;
 public class CameraScript : MonoBehaviour
 {
     public int CameraSpeed;
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public bool isCinematic;
+    public Vector3 ViewNormal;
+
+    public Vector3 ViewCinematic;
+    public Vector3 RotationCinematic;
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,7 +30,49 @@ public class CameraScript : MonoBehaviour
         {
             MoveCamera(gameObject.transform.position + -gameObject.transform.right * CameraSpeed * Time.deltaTime);
         }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            MoveCamera(gameObject.transform.position + gameObject.transform.forward * CameraSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            MoveCamera(gameObject.transform.position + -gameObject.transform.forward * CameraSpeed * Time.deltaTime);
+        }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ChangeView();
+        }
+    }
+
+    void Start()
+    {
+        if (!isCinematic)
+        {
+            gameObject.transform.position = ViewNormal;
+            gameObject.transform.eulerAngles = new Vector3(90, 0, 0);
+        }
+        else
+        {
+            gameObject.transform.position = ViewCinematic;
+            gameObject.transform.eulerAngles = RotationCinematic;
+        }
+    }
+
+    private void ChangeView()
+    {
+        if (isCinematic)
+        {
+            gameObject.transform.position = ViewNormal;
+            gameObject.transform.eulerAngles = new Vector3(90, 0, 0);
+        }
+        else
+        {
+            gameObject.transform.position =  ViewCinematic;
+            gameObject.transform.eulerAngles = RotationCinematic;
+        }
+
+        isCinematic = !isCinematic;
     }
 
     private void MoveCamera(Vector3 newPos)
