@@ -57,8 +57,6 @@ public class Room : MonoBehaviour
 
     public Vector3 GetSpaceInRoom()
     {
-
-
         return RoomSpace.transform.position + new Vector3(RandomInteger.Get(-3, 3) + Random.value,0, RandomInteger.Get(-3, 3) + Random.value);
     }
 

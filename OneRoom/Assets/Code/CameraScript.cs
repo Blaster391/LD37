@@ -15,19 +15,19 @@ public class CameraScript : MonoBehaviour
 
 	    if (Input.GetKey(KeyCode.W))
 	    {
-	        MoveCamera(gameObject.transform.position + Vector3.forward * CameraSpeed * Time.deltaTime);
+	        MoveCamera(gameObject.transform.position + gameObject.transform.up * CameraSpeed * Time.deltaTime);
 	    }
         if (Input.GetKey(KeyCode.S))
         {
-            MoveCamera(gameObject.transform.position + Vector3.back * CameraSpeed * Time.deltaTime);
+            MoveCamera(gameObject.transform.position + -gameObject.transform.up* CameraSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            MoveCamera(gameObject.transform.position + Vector3.right * CameraSpeed * Time.deltaTime);
+            MoveCamera(gameObject.transform.position + gameObject.transform.right * CameraSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            MoveCamera(gameObject.transform.position + Vector3.left * CameraSpeed * Time.deltaTime);
+            MoveCamera(gameObject.transform.position + -gameObject.transform.right * CameraSpeed * Time.deltaTime);
         }
 
     }
@@ -42,7 +42,7 @@ public class CameraScript : MonoBehaviour
 
     private bool CheckCanMoveTheCamera(Vector3 newPos)
     {
-        Ray ray = new Ray(newPos + Vector3.up*10, Vector3.down);
+        Ray ray = new Ray(newPos, gameObject.transform.forward);
         return Physics.SphereCast(ray, 7);
     }
 }
