@@ -28,11 +28,12 @@ public class GameManager : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            LayerMask lm = LayerMask.GetMask("Room");
+            if (Physics.Raycast(ray, out hit, 100.0f, lm))
             {
-                if (hit.collider.CompareTag("RoomSpace"))
+                if (hit.collider.CompareTag("Room"))
                 {
-                    hit.collider.GetComponent<RoomSpaceScript>().TriggerScary();
+                    hit.collider.GetComponent<Room>().MakeRoomScary();
                 }
             }
         }
