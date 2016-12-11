@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public List<Person> People;
     public List<Room> Rooms;
     public GameObject NextLevelPanel;
-
+    public GameObject HelpPanel;
     public AudioSource AudioPlayer;
 
     public List<AudioClip> CompletionSounds;
@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
             NextLevelPanel.SetActive(false);
         }
         
+        HelpPanel = GameObject.Find("HelpPanel");
+        if (HelpPanel != null)
+        {
+            HelpPanel.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +49,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Replay();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            HelpPanel.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.F1))
+        {
+            HelpPanel.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
