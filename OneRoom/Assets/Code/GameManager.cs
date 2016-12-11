@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public List<Room> Rooms;
     public GameObject NextLevelPanel;
 
+    public AudioSource AudioPlayer;
 
+    public List<AudioClip> CompletionSounds;
 
     void Start()
     {
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
         {
             NextLevelPanel.SetActive(false);
         }
+        
     }
 
     // Update is called once per frame
@@ -91,6 +94,8 @@ public class GameManager : MonoBehaviour
         {
             if (NextLevelPanel != null)
                 NextLevelPanel.SetActive(true);
+
+            AudioPlayer.PlayOneShot(CompletionSounds[0]);
         }
     }
     public void LoadNextLevel()
