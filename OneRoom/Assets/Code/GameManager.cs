@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public List<Room> Rooms;
     public GameObject NextLevelPanel;
     public GameObject HelpPanel;
+    public GameObject QuitPanel;
     public AudioSource AudioPlayer;
 
     public List<AudioClip> CompletionSounds;
@@ -27,6 +28,12 @@ public class GameManager : MonoBehaviour
         if (HelpPanel != null)
         {
             HelpPanel.SetActive(false);
+        }
+
+        QuitPanel = GameObject.Find("QuitPanel");
+        if (QuitPanel != null)
+        {
+            QuitPanel.SetActive(false);
         }
     }
 
@@ -63,7 +70,15 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            if (QuitPanel != null)
+            {
+                QuitPanel.SetActive(true);
+            }
+            else
+            {
+                Application.Quit();
+            }
+           
         }
     }
     public int NumberOfPeopleOfGivenColor(PersonColor color)
