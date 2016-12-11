@@ -70,9 +70,12 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (QuitPanel != null)
+            if (QuitPanel != null && !QuitPanel.activeSelf)
             {
                 QuitPanel.SetActive(true);
+            }else if (QuitPanel != null)
+            {
+                QuitPanel.SetActive(false);
             }
             else
             {
