@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Person : MonoBehaviour
 {
@@ -35,10 +36,14 @@ public class Person : MonoBehaviour
         yield return new WaitForSeconds(Random.value * 2);
         while (true)
         {
-            Debug.Log("Setting destination");
-            _agent.SetDestination(
-                CurrentRoom.AdjecentRooms[RandomInteger.Get(0, CurrentRoom.AdjecentRooms.Count)].GetSpaceInRoom());
-            yield return new WaitForSeconds(RandomInteger.Get(2,8));
+            var rooms = CurrentRoom.AdjecentRooms.Where(x => !x.Scary).ToList();
+            if (rooms.Count != 0)
+            {
+                _agent.SetDestination(
+                    rooms[RandomInteger.Get(0, rooms.Count)].GetSpaceInRoom());
+               
+            }
+            yield return new WaitForSeconds(RandomInteger.Get(2, 8));
         }
     }
 }

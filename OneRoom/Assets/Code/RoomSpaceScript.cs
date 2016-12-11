@@ -26,7 +26,6 @@ public class RoomSpaceScript : MonoBehaviour
     {
         if (other.CompareTag("Person"))
         {
-            Debug.Log(_room.gameObject.name + "entered");
             _room.PersonEntersRoom(other.GetComponent<Person>());
 
             if (_room.Scary)
@@ -38,10 +37,8 @@ public class RoomSpaceScript : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-
         if (other.CompareTag("Person"))
         {
-            Debug.Log(_room.gameObject.name + "left");
             _room.PersonLeavesRoom(other.GetComponent<Person>());
         }
     }
