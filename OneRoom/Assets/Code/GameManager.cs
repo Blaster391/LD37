@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Replay();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -104,6 +104,12 @@ public class GameManager : MonoBehaviour
             AudioPlayer.PlayOneShot(CompletionSounds[audioIndex]);
         }
     }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
