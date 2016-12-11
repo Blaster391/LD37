@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
@@ -56,7 +57,9 @@ public class Room : MonoBehaviour
 
     public Vector3 GetSpaceInRoom()
     {
-        return RoomSpace.transform.position;
+
+
+        return RoomSpace.transform.position + new Vector3(RandomInteger.Get(-3, 3) + Random.value,0, RandomInteger.Get(-3, 3) + Random.value);
     }
 
     public void PersonEntersRoom(Person p)
