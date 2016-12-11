@@ -51,8 +51,8 @@ public class RoomLinker : EditorWindow
 
             room.NorthWalkThrough = room.gameObject.transform.GetChild(9).gameObject;
             room.SouthWalkThrough = room.gameObject.transform.GetChild(10).gameObject;
-            room.EastWalkThrough = room.gameObject.transform.GetChild(11).gameObject;
-            room.WestWalkThrough = room.gameObject.transform.GetChild(12).gameObject;
+            room.EastWalkThrough = room.gameObject.transform.GetChild(12).gameObject;
+            room.WestWalkThrough = room.gameObject.transform.GetChild(11).gameObject;
 
             room.NorthWalkThrough.SetActive(false);
             room.SouthWalkThrough.SetActive(false);
