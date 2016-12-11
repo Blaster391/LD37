@@ -30,7 +30,7 @@ public class CameraScript : MonoBehaviour
         {
             MoveCamera(gameObject.transform.position + -gameObject.transform.right * CameraSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && gameObject.transform.position.y > 5)
         {
             MoveCamera(gameObject.transform.position + gameObject.transform.forward * CameraSpeed * Time.deltaTime);
         }
