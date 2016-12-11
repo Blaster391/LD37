@@ -26,6 +26,8 @@ public class Room : MonoBehaviour
     public bool ColorExclusive;
     public PersonColor ExclusiveColor;
 
+    public List<AudioClip> ClickedSounds;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -127,6 +129,9 @@ public class Room : MonoBehaviour
         Scary = true;
         SetRoomColor();
         Flee();
+
+        var audioIndex = RandomInteger.Get(0, ClickedSounds.Count);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(ClickedSounds[audioIndex]);
     }
 
     public void CheckComplete()

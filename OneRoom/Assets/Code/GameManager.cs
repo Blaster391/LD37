@@ -95,7 +95,8 @@ public class GameManager : MonoBehaviour
             if (NextLevelPanel != null)
                 NextLevelPanel.SetActive(true);
 
-            AudioPlayer.PlayOneShot(CompletionSounds[0]);
+            var audioIndex = RandomInteger.Get(0, CompletionSounds.Count);
+            AudioPlayer.PlayOneShot(CompletionSounds[audioIndex]);
         }
     }
     public void LoadNextLevel()

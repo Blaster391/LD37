@@ -52,8 +52,11 @@ public class Person : MonoBehaviour
 
     public void PlayRoomAudio()
     {
-        
-        gameObject.GetComponent<AudioSource>().PlayOneShot(EnterAudio[0]);
+        var audioIndexFloat = (float) CurrentRoom.People.Count(x => x.PersonColor == PersonColor)/
+                         _gm.NumberOfPeopleOfGivenColor(PersonColor)*(EnterAudio.Count() - 1);
+
+        var audioIndex = Mathf.CeilToInt(audioIndexFloat);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(EnterAudio[audioIndex]);
     }
 }
 
