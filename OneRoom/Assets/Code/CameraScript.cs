@@ -57,6 +57,25 @@ public class CameraScript : MonoBehaviour
             gameObject.transform.position = ViewCinematic;
             gameObject.transform.eulerAngles = RotationCinematic;
         }
+
+        var recognizer = new TKPanRecognizer();
+
+        // when using in conjunction with a pinch or rotation recognizer setting the min touches to 2 smoothes movement greatly
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+            recognizer.minimumNumberOfTouches = 2;
+
+        recognizer.gestureRecognizedEvent += (r) =>
+        {
+            Camera.main.transform.position -= new Vector3(recognizer.deltaTranslation.x, recognizer.deltaTranslation.y) / 100;
+            Debug.Log("pan recognizer fired: " + r);
+        };
+
+        // continuous gestures have a complete event so that we know when they are done recognizing
+        recognizer.gestureCompleteEvent += r =>
+        {
+            Debug.Log("pan gesture complete");
+        };
+        TouchKit.addGestureRecognizer(recognizer);
     }
 
     private void ChangeView()
